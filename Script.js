@@ -7,6 +7,7 @@ let newGameButton = document.querySelector(".newGame");
 
 
 let turnDecetion = true;
+let count = 0;
 
 const winningPattern = [
     [0, 1, 2],
@@ -32,6 +33,15 @@ AllButtons.forEach((box)=>{
         }
         box.disabled = true;
         checkWinner();
+        count++;
+
+        //when all button is clicked and still match has no winner 
+        //when it will be showing and this count method for counting when actually it will be 9 times clicked
+        let iswin = checkWinner();
+        if(count === 9 &&!iswin){
+            winnMsg.innerText = `Match Draw`;
+            winnMsg.classList.remove("hide");
+        }
     });
 });
 
@@ -70,13 +80,16 @@ const checkWinner = () =>{
                 console.log("win",second);
                 showWinner(second);
                 disableButton();
-            }
-        }
+                return true;
+            } 
     }
 };
+};
+
 //This function will be use for Reset this Game...
 const GameReset = () =>{
     turnDecetion = true;
+    count = 0;
     enableButton();
     winnMsg.classList.add("hide");
 }
